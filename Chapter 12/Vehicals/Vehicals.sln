@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleClient", "Vehicals\VehicleClient.csproj", "{7AF1A9C3-DC94-4248-803C-83036119EE1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTesting", "GameTesting\GameTesting.csproj", "{0B34E4D4-D771-4157-BCFF-1315804A409C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7AF1A9C3-DC94-4248-803C-83036119EE1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF1A9C3-DC94-4248-803C-83036119EE1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF1A9C3-DC94-4248-803C-83036119EE1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF1A9C3-DC94-4248-803C-83036119EE1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B34E4D4-D771-4157-BCFF-1315804A409C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B34E4D4-D771-4157-BCFF-1315804A409C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B34E4D4-D771-4157-BCFF-1315804A409C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B34E4D4-D771-4157-BCFF-1315804A409C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {96EA8366-8127-4EB1-B444-28A184DA197D}
+	EndGlobalSection
+EndGlobal
