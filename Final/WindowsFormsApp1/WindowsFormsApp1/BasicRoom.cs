@@ -10,6 +10,17 @@ namespace WindowsFormsApp1
     {
         bool Smoking;
 
+        public BasicRoom(string room, bool bal, bool dfr, int numBeds)
+        {
+            RoomNumber = room;
+            Balcony = bal;
+            DownForRepair = dfr;
+            NumberOfBeds = numBeds;
 
+        }
+        public override string ToString()
+        {
+            return $"{RoomNumber} {Balcony} {DownForRepair} {NumberOfBeds} {Smoking}";
+        }
     }
 }

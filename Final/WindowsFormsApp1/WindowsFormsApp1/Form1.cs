@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
@@ -21,16 +20,27 @@ namespace WindowsFormsApp1
         public Form1()
         {
             Clients = new List<Client>();
+            Occupancies = new List<Occupancy>();
+            Rooms = new List<Room>();
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             LoadListFromFile("Clients.txt");
+            LoadListFromFile("Rooms.txt");
+           
+        }
+
+        private bool fileExistsInSystem(string v)
+        {
+            return System.IO.File.Exists(v);
         }
 
         private void LoadListFromFile(string fileName) 
         {
+            System.IO.File.OpenRead((fileName));
             string[] listInfo = System.IO.File.ReadAllLines(fileName);
             if(fileName.Equals("Clients.txt"))
             {
@@ -47,11 +57,38 @@ namespace WindowsFormsApp1
                         long.Parse(clientDetails[4]),
                         doorPrizes
                         ));
-
-                    listBox1.Items.Add(Clients[0]);
                 }
-
             }
+            else if (fileName.Equals("Rooms.txt"))
+            {
+                foreach(string s in listInfo)
+                {
+                    string[] sInfo = s.Split(':');
+                    string[] roomInfo = sInfo[0].Split('.');
+                    if (sInfo[1].Equals('B'))
+                    {
+                        
+                        Rooms.Add(new BasicRoom(
+                            roomInfo[0],
+                            roomInfo[1].Equals("T") ? true : false,
+                            roomInfo[2].Equals("T") ? true : false,
+                            int.Parse(roomInfo[3])
+                            ));
+                    }
+                    else
+                    {
+                        Rooms.Add(new Suite(
+                            roomInfo[0],
+                            roomInfo[1].Equals("T") ? true : false,
+                            roomInfo[2].Equals("T") ? true : false,
+                            int.Parse(roomInfo[3])
+                            ));
+                    }
+
+                }
+                
+            }
+            
             else if (fileName.Equals("Occupancies.txt"))
             {
 
@@ -59,8 +96,37 @@ namespace WindowsFormsApp1
 
 
         }
+        // CLIENTS BUTTON
+        // DISPLAYS THE CLIENTS TO THE TEXT BOX
+        private void button1_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            foreach(var v in Clients)
+            {
+                listBox1.Items.Add(v);
+            }
 
+        }
+        // ROOMS BUTTON
+        // DISPLAYS THE ROOMS TO THE TEXT BOX
+        private void button2_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            foreach (var v in Rooms)
+            {
 
-
+                listBox1.Items.Add(v);
+            }
+        }
+        // OCCUPANCIES BUTTON
+        // DISPLAYS THE OCCUPANCIES TO THE TEXT BOX
+        private void button3_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            foreach (var v in Occupancies)
+            {
+                listBox1.Items.Add(v);
+            }
+        }
     }
 }

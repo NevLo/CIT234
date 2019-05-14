@@ -61,7 +61,17 @@ namespace WindowsFormsApp1
         }
         public override string ToString()
         {
-            return $"{ID}  {FirstName} {LastName}  {Address} {PhoneNumber}  {DoorPrizes}";
+            return $"{ID}\t{FirstName}\t{LastName}\t{Address}\t{PhoneNumber}";
+        }
+
+        public object displayDoorPrizes()
+        {
+            string dp = "";
+            foreach(var s in DoorPrizes)
+            {
+                dp += s + "  ";
+            }
+            return dp;
         }
     }
 }

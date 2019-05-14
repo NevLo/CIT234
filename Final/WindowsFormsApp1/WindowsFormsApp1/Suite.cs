@@ -10,5 +10,17 @@ namespace WindowsFormsApp1
     {
         int NumberOfRooms;
 
+        public Suite(string room, bool bal, bool dfr, int numBeds)
+        {
+            RoomNumber = room;
+            Balcony = bal;
+            DownForRepair = dfr;
+            NumberOfBeds = numBeds;
+
+        }
+        public override string ToString()
+        {
+            return $"{RoomNumber}\t{Balcony}\t{DownForRepair}\t{NumberOfBeds}\t{NumberOfRooms}";
+        }
     }
 }

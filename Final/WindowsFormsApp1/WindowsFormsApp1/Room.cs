@@ -8,9 +8,13 @@ namespace WindowsFormsApp1
 {
     public abstract class Room
     {
-        string RoomNumber;
-        bool Balcony;
-        bool DownForRepair;
-        int NumberOfBeds;
+        public string RoomNumber;
+        public bool Balcony;
+        public bool DownForRepair;
+        public int NumberOfBeds;
+
+        
+
+
     }
 }
