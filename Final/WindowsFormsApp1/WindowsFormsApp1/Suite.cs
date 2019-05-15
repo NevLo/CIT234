@@ -10,13 +10,13 @@ namespace WindowsFormsApp1
     {
         int NumberOfRooms;
 
-        public Suite(string room, bool bal, bool dfr, int numBeds)
+        public Suite(string room, bool bal, bool dfr, int numBeds, int numRooms)
         {
             RoomNumber = room;
             Balcony = bal;
             DownForRepair = dfr;
             NumberOfBeds = numBeds;
-
+            NumberOfRooms = numRooms;
         }
         public override string ToString()
         {

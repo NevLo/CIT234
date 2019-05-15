@@ -10,5 +10,12 @@ namespace WindowsFormsApp1
     {
         string ClientID;
         string RoomNumber;
+        
+
+        public Occupancy(string v1, string v2)
+        {
+            this.ClientID = v1;
+            this.RoomNumber = v2;
+        }
     }
 }
