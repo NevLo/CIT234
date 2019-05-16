@@ -293,6 +293,11 @@ namespace WindowsFormsApp1
                 if(comboBox4.SelectedText.StartsWith(c.LastName) && comboBox4.SelectedText.EndsWith(c.FirstName))
                 {
                     clientID = c.ID.ToString();
+                    Random num = new Random();
+                    if(num.Next(0,3) == 1)
+                    {
+                        c.giveDoorPrize();
+                    }
                 }
             }
             Occupancies.Add(new Occupancy(clientID, comboBox5.SelectedText));

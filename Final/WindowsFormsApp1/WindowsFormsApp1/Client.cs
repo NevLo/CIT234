@@ -84,5 +84,11 @@ namespace WindowsFormsApp1
             
             return outString;
         }
+
+        internal void giveDoorPrize()
+        {
+            Random num = new Random();
+            DoorPrizes.Add("DP" + num.Next(10));
+        }
     }
 }
