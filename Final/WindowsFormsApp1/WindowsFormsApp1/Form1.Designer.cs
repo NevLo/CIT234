@@ -43,29 +43,34 @@
             this.label1 = new System.Windows.Forms.Label();
             this.EXIT = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmboxRemoveClient = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.cmboxRoomAccess = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.button9 = new System.Windows.Forms.Button();
+            this.cmboxCheckInRoom = new System.Windows.Forms.ComboBox();
+            this.cmboxCheckInClient = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.button10 = new System.Windows.Forms.Button();
+            this.cmboxCheckOut = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBox1
@@ -84,7 +89,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Clients";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.DisplayClients_Click);
             // 
             // button2
             // 
@@ -94,7 +99,7 @@
             this.button2.TabIndex = 2;
             this.button2.Text = "Rooms";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.DisplayRooms_Click);
             // 
             // button3
             // 
@@ -104,7 +109,7 @@
             this.button3.TabIndex = 3;
             this.button3.Text = "Occupancies";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.DisplayOccupancies_Click);
             // 
             // panel1
             // 
@@ -178,7 +183,7 @@
             this.button4.TabIndex = 1;
             this.button4.Text = "Add";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.AddClient_Click);
             // 
             // label1
             // 
@@ -206,7 +211,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Controls.Add(this.cmboxRemoveClient);
             this.panel2.Controls.Add(this.button5);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Location = new System.Drawing.Point(13, 347);
@@ -214,13 +219,13 @@
             this.panel2.Size = new System.Drawing.Size(200, 91);
             this.panel2.TabIndex = 6;
             // 
-            // comboBox1
+            // cmboxRemoveClient
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 21);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(128, 21);
-            this.comboBox1.TabIndex = 3;
+            this.cmboxRemoveClient.FormattingEnabled = true;
+            this.cmboxRemoveClient.Location = new System.Drawing.Point(3, 21);
+            this.cmboxRemoveClient.Name = "cmboxRemoveClient";
+            this.cmboxRemoveClient.Size = new System.Drawing.Size(128, 21);
+            this.cmboxRemoveClient.TabIndex = 3;
             // 
             // button5
             // 
@@ -230,7 +235,7 @@
             this.button5.TabIndex = 2;
             this.button5.Text = "Remove";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.RemoveClient_Click);
             // 
             // label5
             // 
@@ -259,12 +264,12 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel4.Controls.Add(this.button8);
             this.panel4.Controls.Add(this.button7);
-            this.panel4.Controls.Add(this.comboBox3);
+            this.panel4.Controls.Add(this.cmboxRoomAccess);
             this.panel4.Controls.Add(this.label8);
             this.panel4.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel4.Location = new System.Drawing.Point(-2, -2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(200, 100);
+            this.panel4.Size = new System.Drawing.Size(200, 97);
             this.panel4.TabIndex = 8;
             // 
             // button8
@@ -275,7 +280,7 @@
             this.button8.TabIndex = 2;
             this.button8.Text = "Restore";
             this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.button8.Click += new System.EventHandler(this.RestoreRoom_Click);
             // 
             // button7
             // 
@@ -285,15 +290,15 @@
             this.button7.TabIndex = 2;
             this.button7.Text = "Terminate";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button7.Click += new System.EventHandler(this.TerminateRoom_Click);
             // 
-            // comboBox3
+            // cmboxRoomAccess
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(7, 24);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(156, 21);
-            this.comboBox3.TabIndex = 1;
+            this.cmboxRoomAccess.FormattingEnabled = true;
+            this.cmboxRoomAccess.Location = new System.Drawing.Point(7, 24);
+            this.cmboxRoomAccess.Name = "cmboxRoomAccess";
+            this.cmboxRoomAccess.Size = new System.Drawing.Size(156, 21);
+            this.cmboxRoomAccess.TabIndex = 1;
             // 
             // label8
             // 
@@ -344,13 +349,39 @@
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel5.Controls.Add(this.button9);
-            this.panel5.Controls.Add(this.comboBox5);
-            this.panel5.Controls.Add(this.comboBox4);
+            this.panel5.Controls.Add(this.cmboxCheckInRoom);
+            this.panel5.Controls.Add(this.cmboxCheckInClient);
             this.panel5.Controls.Add(this.label9);
             this.panel5.Location = new System.Drawing.Point(427, 205);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(200, 97);
             this.panel5.TabIndex = 9;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(135, 21);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(58, 52);
+            this.button9.TabIndex = 3;
+            this.button9.Text = "Check In";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.CheckInClient_Click);
+            // 
+            // cmboxCheckInRoom
+            // 
+            this.cmboxCheckInRoom.FormattingEnabled = true;
+            this.cmboxCheckInRoom.Location = new System.Drawing.Point(7, 52);
+            this.cmboxCheckInRoom.Name = "cmboxCheckInRoom";
+            this.cmboxCheckInRoom.Size = new System.Drawing.Size(121, 21);
+            this.cmboxCheckInRoom.TabIndex = 2;
+            // 
+            // cmboxCheckInClient
+            // 
+            this.cmboxCheckInClient.FormattingEnabled = true;
+            this.cmboxCheckInClient.Location = new System.Drawing.Point(7, 23);
+            this.cmboxCheckInClient.Name = "cmboxCheckInClient";
+            this.cmboxCheckInClient.Size = new System.Drawing.Size(121, 21);
+            this.cmboxCheckInClient.TabIndex = 1;
             // 
             // label9
             // 
@@ -361,37 +392,50 @@
             this.label9.TabIndex = 0;
             this.label9.Text = "Check In Client";
             // 
-            // comboBox4
+            // panel6
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(7, 23);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(121, 21);
-            this.comboBox4.TabIndex = 1;
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel6.Controls.Add(this.button10);
+            this.panel6.Controls.Add(this.cmboxCheckOut);
+            this.panel6.Controls.Add(this.label10);
+            this.panel6.Location = new System.Drawing.Point(427, 308);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(200, 100);
+            this.panel6.TabIndex = 10;
             // 
-            // comboBox5
+            // button10
             // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(7, 52);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(121, 21);
-            this.comboBox5.TabIndex = 2;
+            this.button10.Location = new System.Drawing.Point(134, 23);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(58, 52);
+            this.button10.TabIndex = 4;
+            this.button10.Text = "Check Out";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.CheckOutClient_Click);
             // 
-            // button9
+            // cmboxCheckOut
             // 
-            this.button9.Location = new System.Drawing.Point(135, 21);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(58, 52);
-            this.button9.TabIndex = 3;
-            this.button9.Text = "Check In";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.cmboxCheckOut.FormattingEnabled = true;
+            this.cmboxCheckOut.Location = new System.Drawing.Point(7, 23);
+            this.cmboxCheckOut.Name = "cmboxCheckOut";
+            this.cmboxCheckOut.Size = new System.Drawing.Size(121, 21);
+            this.cmboxCheckOut.TabIndex = 1;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(4, 7);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(87, 13);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Check Out Client";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(641, 450);
+            this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.panel3);
@@ -415,6 +459,8 @@
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -439,22 +485,26 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmboxRemoveClient;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox cmboxRoomAccess;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.ComboBox comboBox5;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox cmboxCheckInRoom;
+        private System.Windows.Forms.ComboBox cmboxCheckInClient;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.ComboBox cmboxCheckOut;
+        private System.Windows.Forms.Label label10;
     }
 }
 

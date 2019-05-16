@@ -21,9 +21,12 @@ namespace WindowsFormsApp1
         {
             return $"{ClientID}\t{RoomNumber}";
         }
+        public string Out()
+        {
+            return $"{ClientID}:{RoomNumber}";
+        }
 
 
-
-
+        
     }
 }

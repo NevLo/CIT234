@@ -66,6 +66,7 @@ namespace WindowsFormsApp1
 
         public object displayDoorPrizes()
         {
+            
             string dp = "";
             foreach (var s in DoorPrizes)
             {

@@ -37,26 +37,61 @@ namespace WindowsFormsApp1
             LoadListFromFile("Rooms.txt");
             //MessageBox.Show("Rooms loaded!");
             LoadListFromFile("Occupancies.txt");
-            refreshClientRemoveBox();
+            refreshClientBox();
             refreshRoomAccessBox();
+            refreshOccupanciesBox();
         }
+        //#########################################################
+        //#             Refresh  Procedures
+        //#########################################################
+        //# the refresh procedures are our procedures called after
+        //# we edit any data within the lists of objects.
+        //# these methods will update all combo boxes on the form.
+        //#########################################################
 
-        public void refreshClientRemoveBox()
+
+        public void refreshClientBox()
         {
-            comboBox1.Items.Clear();
+            cmboxRemoveClient.Items.Clear();
+            cmboxCheckInClient.Items.Clear();
             foreach (Client v in Clients)
             {
                 string name = $"{v.LastName}, {v.FirstName}";
-                comboBox1.Items.Add(name);
-                comboBox4.Items.Add(name);
+                cmboxRemoveClient.Items.Add(name);
+                cmboxCheckInClient.Items.Add(name);
             }
+            cmboxRemoveClient.ResetText();
+            cmboxCheckInClient.ResetText();
         }
-
-        private bool FileExistsInSystem(string v)
+        private void refreshRoomAccessBox()
         {
-            return File.Exists(v);
-        }
+            cmboxRoomAccess.Items.Clear();
+            cmboxCheckInRoom.Items.Clear();
+            foreach (var r in Rooms)
+            {
+                cmboxRoomAccess.Items.Add(r.RoomNumber);
+                cmboxCheckInRoom.Items.Add(r.RoomNumber);
+            }
+            cmboxRoomAccess.ResetText();
+            cmboxCheckInRoom.ResetText();
 
+        }
+        private void refreshOccupanciesBox()
+        {
+            cmboxCheckOut.Items.Clear();
+            foreach (var o in Occupancies)
+            {
+                cmboxCheckOut.Items.Add(o);
+            }
+            cmboxCheckOut.ResetText();
+        }
+        //#########################################################
+        //#                   IO PROCEDURES
+        //#########################################################
+        //# These procedures deal with reading in, and writing to
+        //# files that store our client, room, and occupancy data.
+        //#########################################################
+  
         private void LoadListFromFile(string fileName) 
         {
             try
@@ -142,7 +177,7 @@ namespace WindowsFormsApp1
         {
             if (v.Equals("Clients.txt"))
             {
-                //MessageBox.Show("Outputting Client Info to File");
+                
                 StreamWriter output = new StreamWriter(v);
                 foreach(var cl in Clients)
                 {
@@ -160,12 +195,22 @@ namespace WindowsFormsApp1
                 output.Close();
             }
             else if (v.Equals("Occupancies.txt")){
-
+                StreamWriter output = new StreamWriter(v);
+                foreach(var o in Occupancies)
+                {
+                    output.WriteLine(o.Out());
+                }
+                output.Close();
             }
         }
-        // CLIENTS BUTTON
-        // DISPLAYS THE CLIENTS TO THE TEXT BOX
-        private void button1_Click(object sender, EventArgs e)
+        //####################################################################
+        //#                     Button Click Event Handlers
+        //####################################################################
+        //# These methods are used for handling out button clicks. They are 
+        //# called when a button is clicked
+        //####################################################################
+
+        private void DisplayClients_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
             listBox1.Items.Add("ID\tFirst\tLast\tAddress\t\tPhoneNumber");
@@ -175,9 +220,8 @@ namespace WindowsFormsApp1
             }
 
         }
-        // ROOMS BUTTON
-        // DISPLAYS THE ROOMS TO THE TEXT BOX
-        private void button2_Click(object sender, EventArgs e)
+
+        private void DisplayRooms_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
             listBox1.Items.Add("Room\tBalcony\tRepair\tBeds");
@@ -186,9 +230,8 @@ namespace WindowsFormsApp1
                 listBox1.Items.Add(v);
             }
         }
-        // OCCUPANCIES BUTTON
-        // DISPLAYS THE OCCUPANCIES TO THE TEXT BOX
-        private void button3_Click(object sender, EventArgs e)
+
+        private void DisplayOccupancies_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
             foreach (var v in Occupancies)
@@ -197,21 +240,22 @@ namespace WindowsFormsApp1
             }
         }
 
-        
-        //ADDS A CLIENT TO THE SYSTEM
-        private void button4_Click(object sender, EventArgs e)
-        {
-            
+        private void AddClient_Click(object sender, EventArgs e)
+        {  
             try
             {
+
                 long Number = long.Parse(PhoneNumberBox.Text);
                 string Full_Name = NameBox.Text;
                 string Address = AddressBox.Text;
                 string[] firstlast = Full_Name.Split(new char[] {' ','_','-' }, StringSplitOptions.None);
                 Clients.Add(new Client(firstlast[0],firstlast[1],Address,Number));
                 MessageBox.Show("New Client Added!");
-                refreshClientRemoveBox();
-                button1_Click(sender, e);
+                NameBox.Clear();
+                AddressBox.Clear();
+                PhoneNumberBox.Clear();
+                refreshClientBox();
+                DisplayClients_Click(sender, e);
             }
             catch (FormatException)
             {
@@ -233,75 +277,99 @@ namespace WindowsFormsApp1
 
        
 
-        private void button5_Click(object sender, EventArgs e)
+        private void RemoveClient_Click(object sender, EventArgs e)
         {
-            Clients.RemoveAt(comboBox1.SelectedIndex);
-            refreshClientRemoveBox();
-            comboBox1.SelectedText = "";
-            button1_Click(sender, e);
+            if (cmboxRemoveClient.SelectedIndex == -1) return;
+            Clients.RemoveAt(cmboxRemoveClient.SelectedIndex);
+            refreshClientBox();
+            cmboxRemoveClient.SelectedIndex = -1;
+            DisplayClients_Click(sender, e);
         }
 
         
 
-        private void button7_Click(object sender, EventArgs e)
+        private void TerminateRoom_Click(object sender, EventArgs e)
         {
-            //Terminate Room Access
-               
-            Rooms[comboBox3.SelectedIndex].DownForRepair = true;
-            comboBox3.SelectedText = "";
+
+            if (cmboxRoomAccess.SelectedIndex == -1) return;
+            Rooms[cmboxRoomAccess.SelectedIndex].DownForRepair = true;
+            cmboxRoomAccess.SelectedText = "";
             refreshRoomAccessBox();
-            button2_Click(sender, e);
+            DisplayRooms_Click(sender, e);
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void RestoreRoom_Click(object sender, EventArgs e)
         {
-            //Restore Room Access
-            Rooms[comboBox3.SelectedIndex].DownForRepair = false;
-            comboBox3.SelectedText = "";
+        
+            if (cmboxRoomAccess.SelectedIndex == -1) return;
+            Rooms[cmboxRoomAccess.SelectedIndex].DownForRepair = false;
+            cmboxRoomAccess.SelectedText = "";
             refreshRoomAccessBox();
-            button2_Click(sender, e);
+            DisplayRooms_Click(sender, e);
         }
 
-        private void refreshRoomAccessBox()
+        
+        private void CheckInClient_Click(object sender, EventArgs e)
         {
-            foreach(var r in Rooms)
-            {
-                comboBox3.Items.Add(r.RoomNumber);
-                comboBox5.Items.Add(r.RoomNumber);
-            }
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            //Check in button
-            if (Rooms[comboBox5.SelectedIndex].DownForRepair)
+            
+            if (cmboxCheckInRoom.SelectedIndex == -1) return;
+            if (cmboxCheckInClient.SelectedIndex == -1) return;
+            if (Rooms[cmboxCheckInRoom.SelectedIndex].DownForRepair)
             {
                 MessageBox.Show("Please pick a different room, this one is down for repair");
                 return;
             }
             foreach(var o in Occupancies)
             {
-                if(int.Parse(o.RoomNumber) == comboBox5.SelectedIndex)
+                if(int.Parse(o.RoomNumber) == cmboxCheckInRoom.SelectedIndex)
                 {
                     MessageBox.Show("This room is already occupied!");
                     return;
                 }
             }
+            //MessageBox.Show("I have made it this far!");
             string clientID = "";
             foreach(var c in Clients)
             {
-                if(comboBox4.SelectedText.StartsWith(c.LastName) && comboBox4.SelectedText.EndsWith(c.FirstName))
+                string name = cmboxCheckInClient.SelectedItem.ToString();
+                //MessageBox.Show(name);
+                if (name.StartsWith(c.LastName) && name.EndsWith(c.FirstName)) 
                 {
+                    //MessageBox.Show("I HAVE FOUND THE SHIT!");
                     clientID = c.ID.ToString();
                     Random num = new Random();
                     if(num.Next(0,3) == 1)
                     {
+                        MessageBox.Show("Door Prize Recieved!");
                         c.giveDoorPrize();
                     }
                 }
             }
-            Occupancies.Add(new Occupancy(clientID, comboBox5.SelectedText));
-            button3_Click(sender,e);
+            MessageBox.Show("Occupant Added!");
+            Occupancies.Add(new Occupancy(clientID, cmboxCheckInRoom.SelectedItem.ToString()));
+            refreshOccupanciesBox();
+            DisplayOccupancies_Click(sender,e);
+        }
+
+        private void CheckOutClient_Click(object sender, EventArgs e)
+        {
+            string occ = cmboxCheckOut.SelectedItem.ToString();
+            //MessageBox.Show(occ);
+            string room = occ.Substring(7);
+            //MessageBox.Show(room);
+            foreach(var o in Occupancies)
+            {
+                if(o.RoomNumber == room && occ.StartsWith(o.ClientID))
+                {
+                    MessageBox.Show("Client has been checked out!");
+                    Occupancies.Remove(o);
+                    refreshOccupanciesBox();
+                    DisplayOccupancies_Click(sender, e);
+                    return;
+                }
+            }
+
+
         }
     }
 }
