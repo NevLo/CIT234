@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
+using System.Text.RegularExpressions;
 
 namespace WindowsFormsApp1
 {
@@ -33,20 +33,24 @@ namespace WindowsFormsApp1
         {
             
             LoadListFromFile("Clients.txt");
-            MessageBox.Show("Clients loaded!");
+            //MessageBox.Show("Clients loaded!");
             LoadListFromFile("Rooms.txt");
-            MessageBox.Show("Rooms loaded!");
+            //MessageBox.Show("Rooms loaded!");
             LoadListFromFile("Occupancies.txt");
-            
+            refreshClientRemoveBox();
+            refreshRoomAccessBox();
         }
-        private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+
+        public void refreshClientRemoveBox()
         {
-            WriteOutToFile("Clients.txt");
-            WriteOutToFile("Rooms.txt");
-            WriteOutToFile("Occupancies.txt");
+            comboBox1.Items.Clear();
+            foreach (Client v in Clients)
+            {
+                string name = $"{v.LastName}, {v.FirstName}";
+                comboBox1.Items.Add(name);
+                comboBox4.Items.Add(name);
+            }
         }
-
-
 
         private bool FileExistsInSystem(string v)
         {
@@ -126,11 +130,11 @@ namespace WindowsFormsApp1
             }
             catch (FileNotFoundException)
             {
-
+                MessageBox.Show(fileName +" Not Found");
             }
             catch (FileLoadException)
             {
-
+                MessageBox.Show("File unable to be loaded");
             }
 
         }
@@ -138,11 +142,22 @@ namespace WindowsFormsApp1
         {
             if (v.Equals("Clients.txt"))
             {
-
+                //MessageBox.Show("Outputting Client Info to File");
+                StreamWriter output = new StreamWriter(v);
+                foreach(var cl in Clients)
+                {
+                    output.WriteLine(cl.Out());
+                }
+                output.Close();
             }
             else if (v.Equals("Rooms.txt"))
             {
-
+                StreamWriter output = new StreamWriter(v);
+                foreach (var r in Rooms)
+                {
+                    output.WriteLine(r.Out());
+                }
+                output.Close();
             }
             else if (v.Equals("Occupancies.txt")){
 
@@ -180,6 +195,108 @@ namespace WindowsFormsApp1
             {
                 listBox1.Items.Add(v);
             }
+        }
+
+        
+        //ADDS A CLIENT TO THE SYSTEM
+        private void button4_Click(object sender, EventArgs e)
+        {
+            
+            try
+            {
+                long Number = long.Parse(PhoneNumberBox.Text);
+                string Full_Name = NameBox.Text;
+                string Address = AddressBox.Text;
+                string[] firstlast = Full_Name.Split(new char[] {' ','_','-' }, StringSplitOptions.None);
+                Clients.Add(new Client(firstlast[0],firstlast[1],Address,Number));
+                MessageBox.Show("New Client Added!");
+                refreshClientRemoveBox();
+                button1_Click(sender, e);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Please enter a valid phone number");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show("Please enter a full name!");
+            }
+        }
+
+        private void EXIT_Click(object sender, EventArgs e)
+        {
+            WriteOutToFile("Clients.txt");
+            WriteOutToFile("Rooms.txt");
+            WriteOutToFile("Occupancies.txt");
+            Environment.Exit(1);
+        }
+
+       
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Clients.RemoveAt(comboBox1.SelectedIndex);
+            refreshClientRemoveBox();
+            comboBox1.SelectedText = "";
+            button1_Click(sender, e);
+        }
+
+        
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //Terminate Room Access
+               
+            Rooms[comboBox3.SelectedIndex].DownForRepair = true;
+            comboBox3.SelectedText = "";
+            refreshRoomAccessBox();
+            button2_Click(sender, e);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            //Restore Room Access
+            Rooms[comboBox3.SelectedIndex].DownForRepair = false;
+            comboBox3.SelectedText = "";
+            refreshRoomAccessBox();
+            button2_Click(sender, e);
+        }
+
+        private void refreshRoomAccessBox()
+        {
+            foreach(var r in Rooms)
+            {
+                comboBox3.Items.Add(r.RoomNumber);
+                comboBox5.Items.Add(r.RoomNumber);
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            //Check in button
+            if (Rooms[comboBox5.SelectedIndex].DownForRepair)
+            {
+                MessageBox.Show("Please pick a different room, this one is down for repair");
+                return;
+            }
+            foreach(var o in Occupancies)
+            {
+                if(int.Parse(o.RoomNumber) == comboBox5.SelectedIndex)
+                {
+                    MessageBox.Show("This room is already occupied!");
+                    return;
+                }
+            }
+            string clientID = "";
+            foreach(var c in Clients)
+            {
+                if(comboBox4.SelectedText.StartsWith(c.LastName) && comboBox4.SelectedText.EndsWith(c.FirstName))
+                {
+                    clientID = c.ID.ToString();
+                }
+            }
+            Occupancies.Add(new Occupancy(clientID, comboBox5.SelectedText));
+            button3_Click(sender,e);
         }
     }
 }

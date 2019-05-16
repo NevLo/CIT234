@@ -20,7 +20,14 @@ namespace WindowsFormsApp1
         }
         public override string ToString()
         {
-            return $"{RoomNumber} {Balcony} {DownForRepair} {NumberOfBeds} {Smoking}";
+            return $"{RoomNumber}\t{Balcony}\t{DownForRepair}\t{NumberOfBeds}\t{Smoking}";
         }
+
+
+        public override string Out()
+        {
+            return $"{RoomNumber}.{((Balcony) ? 'T' : 'F')}.{((DownForRepair) ? 'T' : 'F')}.{NumberOfBeds}:B:{((Smoking) ? 'T' : 'F')}";
+        }
+
     }
 }

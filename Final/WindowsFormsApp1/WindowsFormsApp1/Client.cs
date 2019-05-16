@@ -9,11 +9,11 @@ namespace WindowsFormsApp1
     class Client
     {
         public static int numClients = 0;
-        string ID;
-        string FirstName;
-        string LastName;
-        string Address;
-        long PhoneNumber;
+        public string ID;
+        public string FirstName;
+        public string LastName;
+        public string Address;
+        public long PhoneNumber;
         List<string> DoorPrizes;
 
         public Client()
@@ -44,7 +44,7 @@ namespace WindowsFormsApp1
             Address = ad;
             PhoneNumber = num;
             DoorPrizes = new List<string>();
-            foreach(string s in doorPrizes)
+            foreach (string s in doorPrizes)
             {
                 DoorPrizes.Add(s);
             }
@@ -67,11 +67,22 @@ namespace WindowsFormsApp1
         public object displayDoorPrizes()
         {
             string dp = "";
-            foreach(var s in DoorPrizes)
+            foreach (var s in DoorPrizes)
             {
                 dp += s + "  ";
             }
             return dp;
+        }
+
+        public string Out()
+        {
+            string outString = $"{ID}.{FirstName}.{LastName}.{Address}.{PhoneNumber}:";
+            foreach(var v in DoorPrizes)
+            {
+                outString += v + ".";
+            }
+            
+            return outString;
         }
     }
 }

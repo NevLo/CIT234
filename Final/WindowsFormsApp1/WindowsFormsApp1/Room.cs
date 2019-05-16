@@ -13,8 +13,6 @@ namespace WindowsFormsApp1
         public bool DownForRepair;
         public int NumberOfBeds;
 
-        
-
-
+        public abstract string Out();
     }
 }

@@ -22,5 +22,9 @@ namespace WindowsFormsApp1
         {
             return $"{RoomNumber}\t{Balcony}\t{DownForRepair}\t{NumberOfBeds}\t{NumberOfRooms}";
         }
+        public override string Out()
+        {
+            return $"{RoomNumber}.{((Balcony) ? 'T' : 'F')}.{((DownForRepair) ? 'T' : 'F')}.{NumberOfBeds}:B:{NumberOfRooms}";
+        }
     }
 }

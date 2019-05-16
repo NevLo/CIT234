@@ -8,14 +8,22 @@ namespace WindowsFormsApp1
 {
     class Occupancy
     {
-        string ClientID;
-        string RoomNumber;
-        
+        public string ClientID;
+        public string RoomNumber;
+        public static Queue<Room> vacancies;
 
         public Occupancy(string v1, string v2)
         {
             this.ClientID = v1;
             this.RoomNumber = v2;
         }
+        public override string ToString()
+        {
+            return $"{ClientID}\t{RoomNumber}";
+        }
+
+
+
+
     }
 }
